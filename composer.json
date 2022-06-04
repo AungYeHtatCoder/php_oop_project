@@ -1,0 +1,17 @@
+{
+  "name": "itempire/project",
+  "autoload": {
+    "psr-4": {
+      "Libs\\": "_classes/Libs/",
+      "Helpers\\": "_classes/Helpers/"
+    }
+  },
+  "authors": [
+    {
+      "name": "ashinindavudha"
+    }
+  ],
+  "require": {
+    "fakerphp/faker": "^1.13"
+  }
+}
