@@ -190,18 +190,67 @@ include("layouts/navbar.php")
 
     <div class="card">
      <div class="card-header">
-      <h3>Product Order Daily Revenu</h3>
+      <h3>Product Amount Year Revenu</h3>
      </div>
      <div class="card-body">
       <table class="table">
        <thead>
-        <tr>
-         <th>Date</th>
-         <th>Total Price</th>
-        </tr>
+        <th>
+         Year
+        </th>
+        <th>
+         Total Price
+        </th>
        </thead>
        <tbody>
+        <?php 
+              $get_year_sales = $item_data->getYearSales();
+              foreach ($get_year_sales as $year_sales) {
+                ?>
+        <tr>
 
+
+         <td><?php echo $year_sales->year; ?></td>
+         <td><?php echo $year_sales->total_price; ?></td>
+         <?php
+              }
+              ?>
+
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+
+    <div class="card">
+     <div class="card-header">
+      <h3>Product Amount Dalily Revenu</h3>
+     </div>
+     <div class="card-body">
+      <table class="table">
+       <thead>
+        <th>
+         Day
+        </th>
+        <th>
+         Total Price
+        </th>
+       </thead>
+       <tbody>
+        <?php 
+              $get_day_sales = $item_data->getDailySales();
+              foreach ($get_day_sales as $day_sales) {
+                ?>
+        <tr>
+
+
+         <td><?php echo $day_sales->day; ?></td>
+         <td><?php echo $day_sales->total_price; ?></td>
+         <?php
+              }
+              ?>
+
+        </tr>
        </tbody>
       </table>
      </div>

@@ -135,6 +135,33 @@ class ChapterOneTable
    echo "Select Error: " . $e->getMessage();
   }
  }
+ // get year sales
+ public function getYearSales()
+ {
+  try {
+   $query = "SELECT YEAR(created_at) AS year, SUM(price) AS total_price FROM products GROUP BY YEAR(created_at)";
+   $statement = $this->db->connect()->prepare($query);
+   $statement->execute();
+   $year_sales = $statement->fetchAll();
+   return $year_sales;
+  } catch (PDOException $e) {
+   echo "Select Error: " . $e->getMessage();
+  }
+ }
+
+ // get daily sale
+ public function getDailySales()
+ {
+  try {
+   $query = "SELECT DAY(created_at) AS day, SUM(price) AS total_price FROM products GROUP BY DAY(created_at)";
+   $statement = $this->db->connect()->prepare($query);
+   $statement->execute();
+   $daily_sales = $statement->fetchAll();
+   return $daily_sales;
+  } catch (PDOException $e) {
+   echo "Select Error: " . $e->getMessage();
+  }
+ }
 }
 
 // https://github.com/AungYeHtatCoder/php_oop_project
