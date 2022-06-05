@@ -41,8 +41,8 @@ include("layouts/navbar.php")
          <th>ID</th>
          <th>Product Name</th>
          <th> Price</th>
+         <th> Quantity</th>
          <th>Created At</th>
-         <th>Updated At</th>
          <th>Action</th>
         </tr>
        </thead>
@@ -59,10 +59,11 @@ include("layouts/navbar.php")
          <td><?php echo $item->id; ?></td>
          <td><?php echo $item->item_name; ?></td>
          <td><?php echo $item->price; ?></td>
+         <td><?php echo $item->quantity; ?></td>
          <td><?php echo $item->created_at; ?></td>
-         <td><?php echo $item->updated_at; ?></td>
+         <!-- <td><?php //echo $item->updated_at; ?></td> -->
          <td>
-          <a href="item_detele.php?id=<?php echo $item->id; ?>" class="btn btn-danger">Delete</a>
+          <a href="_actions/item_delete.php?id=<?php echo $item->id; ?>" class="btn btn-danger">Delete</a>
           <a href="item_edit.php?id=<?php echo $item->id; ?>" class="btn btn-warning">Edit</a>
          </td>
         </tr>
@@ -122,6 +123,89 @@ include("layouts/navbar.php")
       </table>
      </div>
     </div>
+    <div class="card">
+     <div class="card-header">
+      <h3>Order Product </h3>
+     </div>
+     <div class="card-body">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Product Name</th>
+         <th>Price</th>
+         <th>Quantity</th>
+        </tr>
+       </thead>
+       <tbody>
+        <?php 
+          use Libs\Database\OrderTable;
+          $order_data = new OrderTable(new MySQL());
+          $order_data->getOrders();
+          foreach ($order_data->getOrders() as $order) {
+            ?>
+        <tr>
+         <td><?php echo $order->order_date; ?></td>
+         <td><?php echo $order->product_id; ?></td>
+         <td><?php echo $order->quantity; ?></td>
+
+        </tr>
+        <?php
+          }
+          ?>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+
+    <div class="card">
+     <div class="card-header">
+      <h3>Product Order Daily Revenu</h3>
+     </div>
+     <div class="card-body">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Date</th>
+         <th>Total Price</th>
+        </tr>
+       </thead>
+       <tbody>
+        <?php 
+        $get_month_sales = $item_data->getMonthSales();
+        foreach ($get_month_sales as $month_sales) {
+          ?>
+        <tr>
+         <td><?php echo $month_sales->month; ?></td>
+         <td><?php echo $month_sales->total_price; ?></td>
+        </tr>
+        <?php
+        }
+        ?>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+
+    <div class="card">
+     <div class="card-header">
+      <h3>Product Order Daily Revenu</h3>
+     </div>
+     <div class="card-body">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Date</th>
+         <th>Total Price</th>
+        </tr>
+       </thead>
+       <tbody>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
    </div>
   </div>
  </div>
@@ -149,7 +233,10 @@ include("layouts/navbar.php")
        <label for="price" class="form-label">Product Price</label>
        <input type="number" name="price" class="form-control" id="price">
       </div>
-
+      <div class="mb-3">
+       <label for="QTY" class="form-label">Product QTY</label>
+       <input type="number" name="quantity" class="form-control" id="quantity">
+      </div>
       <div class="modal-footer">
        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
        <input type="submit" class="btn btn-primary" value="Product Create">

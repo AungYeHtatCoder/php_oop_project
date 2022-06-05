@@ -6,6 +6,7 @@ use Libs\Database\ChapterOneTable;
 $item = [
  "item_name" => $_POST['item_name'] ?? "Unknown",
  "price" => $_POST['price'] ?? 0,
+ "quantity" => $_POST['quantity'] ?? 0,
  //"total" => $_POST['total'] ?? 0,
 ];
 $item_table = new ChapterOneTable(new MySQL());
