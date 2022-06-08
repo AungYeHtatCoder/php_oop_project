@@ -41,7 +41,7 @@ class ChapterOneTable
  public function getTotalPrice()
  {
   try {
-   $query = "SELECT SUM(price) AS total_price FROM products";
+   $query = "SELECT SUM(price * quantity ) AS total_price FROM products";
    $statement = $this->db->connect()->prepare($query);
    $statement->execute();
    $total_price = $statement->fetch();
@@ -126,7 +126,7 @@ class ChapterOneTable
  public function getMonthSales()
  {
   try {
-   $query = "SELECT MONTHNAME(created_at) AS month, SUM(price) AS total_price FROM products GROUP BY MONTH(created_at)";
+   $query = "SELECT MONTHNAME(created_at) AS month, SUM(price * quantity) AS total_price FROM products GROUP BY MONTH(created_at)";
    $statement = $this->db->connect()->prepare($query);
    $statement->execute();
    $month_sales = $statement->fetchAll();
@@ -139,7 +139,7 @@ class ChapterOneTable
  public function getYearSales()
  {
   try {
-   $query = "SELECT YEAR(created_at) AS year, SUM(price) AS total_price FROM products GROUP BY YEAR(created_at)";
+   $query = "SELECT YEAR(created_at) AS year, SUM(price * quantity) AS total_price FROM products GROUP BY YEAR(created_at)";
    $statement = $this->db->connect()->prepare($query);
    $statement->execute();
    $year_sales = $statement->fetchAll();
@@ -153,11 +153,38 @@ class ChapterOneTable
  public function getDailySales()
  {
   try {
-   $query = "SELECT DAY(created_at) AS day, SUM(price) AS total_price FROM products GROUP BY DAY(created_at)";
+   $query = "SELECT DAY(created_at) AS day, SUM(price * quantity) AS total_price FROM products GROUP BY DAY(created_at)";
    $statement = $this->db->connect()->prepare($query);
    $statement->execute();
    $daily_sales = $statement->fetchAll();
    return $daily_sales;
+  } catch (PDOException $e) {
+   echo "Select Error: " . $e->getMessage();
+  }
+ }
+ // get weekly sale
+ public function getWeeklySales()
+ {
+  try {
+   $query = "SELECT WEEK(created_at) AS week, SUM(price * quantity) AS total_price FROM products GROUP BY WEEK(created_at)";
+   $statement = $this->db->connect()->prepare($query);
+   $statement->execute();
+   $weekly_sales = $statement->fetchAll();
+   return $weekly_sales;
+  } catch (PDOException $e) {
+   echo "Select Error: " . $e->getMessage();
+  }
+ }
+
+ // item search
+ public function itemSearch($search)
+ {
+  try {
+   $query = "SELECT * FROM products WHERE item_name LIKE :search";
+   $statement = $this->db->connect()->prepare($query);
+   $statement->execute(['search' => '%' . $search . '%']);
+   $items = $statement->fetchAll();
+   return $items;
   } catch (PDOException $e) {
    echo "Select Error: " . $e->getMessage();
   }

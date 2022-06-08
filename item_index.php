@@ -160,7 +160,7 @@ include("layouts/navbar.php")
 
     <div class="card">
      <div class="card-header">
-      <h3>Product Order Daily Revenu</h3>
+      <h3>Product Monthly Sales</h3>
      </div>
      <div class="card-body">
       <table class="table">
@@ -253,6 +253,34 @@ include("layouts/navbar.php")
         </tr>
        </tbody>
       </table>
+     </div>
+     <div class="card">
+      <div class="card-heard">
+       <h3>Product Amount Weekly Sales</h3>
+      </div>
+      <div class="card-body">
+       <table class="table">
+        <thead>
+         <th>
+          Week
+         </th>
+         <th>
+          Total Price
+         </th>
+        </thead>
+        <tbody>
+         <?php 
+              $get_week_sales = $item_data->getWeeklySales();
+              foreach ($get_week_sales as $week_sales) {
+                ?>
+         <tr>
+          <td><?php echo $week_sales->week ?></td>
+          <td><?php echo $week_sales->total_price ?></td>
+         </tr>
+         <?php
+                }
+                ?>
+      </div>
      </div>
     </div>
    </div>

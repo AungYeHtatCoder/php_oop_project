@@ -9,10 +9,10 @@ insert into orders(order_date,product_id,quantity)
 ## insert products
 -- Language: sql
 -- Path: project.sql
-create table products(id int, product_name varchar(20), price int,quantity int, created_at timestamp, updated_at timestamp);
+create table products(id int, product_name varchar(20), price int,quantity int, created_at DATETIME, updated_at DATETIME);
 
 
-insert INTO products(id, item_name,price, quantity, created_at, updated_at) VALUES 
+insert INTO products(id, product_name, price, quantity, created_at, updated_at) VALUES 
 (1,'apple',10,100,'2020-05-01','2020-05-01'),
 (2,'orange',20,100,'2020-05-01','2020-05-01'),
 (3,'banana',30,100,'2020-05-01','2020-05-01'),
